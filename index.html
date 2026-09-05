@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FRUIT_NINJA</title>
-    <link rel="icon" type="image/png"
+    <link rel="icon"
         href="https://imgs.search.brave.com/YLCDzfi0SEDYbBCLeRQBWpdFMQ62DH0Ck1rJKxAqgYA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzEzLzQ4/LzYwLzEzNDg2MGEw/ZmUwOGRhZjUxYThi/NjhkN2RjZDJkMDJj/LmpwZw" />
-    <!-- <link rel="icon" type="image/png" href="assets/fresh-pineapple-captured-on-a-transparent-background-showcasing-its-vibrant-color.png"> -->
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -31,22 +30,26 @@
 
             <canvas id="canvas" width="800" height="600">
             </canvas>
-            <img src="assets/apple.png" class="fruitImg" alt="">
-            <img src="assets/banana.png" class="fruitImg" alt="">
-            <img src="assets/fresh-pineapple-captured-on-a-transparent-background-showcasing-its-vibrant-color.png"
-                class="fruitImg" alt="">
-            <img src="assets/guava.png" class="fruitImg" alt="">
-            <img src="assets/orange.png" class="fruitImg" alt="">
-            <img src="assets/pomegranate.png" class="fruitImg" alt="">
-            <img src="assets/watermelon.png" class="fruitImg" alt="">
+            <div id="uiScreen" class="uiscreen">
+                <div id="startMenu" class="menu">
+                    <h1>FRUIT NINJA</h1>
+                    <button id="startBtn" class="action_btn">PLAY</button>
+                </div>
+                <img src="assets/apple.png" class="fruitImg" alt="">
+                <img src="assets/banana.png" class="fruitImg" alt="">
+                <img src="assets/fresh-pineapple-captured-on-a-transparent-background-showcasing-its-vibrant-color.png"
+                    class="fruitImg" alt="">
+                <img src="assets/guava.png" class="fruitImg" alt="">
+                <img src="assets/orange.png" class="fruitImg" alt="">
+                <img src="assets/pomegranate.png" class="fruitImg" alt="">
+                <img src="assets/watermelon.png" class="fruitImg" alt="">
 
-            <!-- <button class="playbtn">PLAY</button> -->
+
+            </div>
 
         </div>
 
-    </div>
-
-    <script src="index.js"></script>
+        <script src="index.js"></script>
 </body>
 
 </html>
