@@ -15,36 +15,76 @@ function resizeCanvas() {
 resizeCanvas();
 
 window.addEventListener('resize', resizeCanvas);
-console.log(Math.floor(Math.random()*canvas.width - 10));
-const circles = {
-    // x: Math.floor(Math.random()*canvas.width - 30) ,
-    x: Math.floor(Math.random() * (canvas.width - (30 * 2)) + 30),
-    y:canvas.height-30,
-    size:30,
-    dx:0.1,
-    dy:-4
 
+
+
+const fruits = document.querySelectorAll(".fruitImg");
+console.log(fruits.length);
+
+const fruitsarray = [];
+
+fruits.forEach((fruit) => {
+    const fruitobject = {
+        image: fruit,
+        w: 100,
+        h: 100,
+        x: Math.floor(Math.random() * (canvas.width - (30 * 2)) + 30),
+        y: canvas.height - 100,
+        dx: Math.floor(Math.random()*5),
+        dy: -Math.floor(Math.random()*5) - 7
+        // dy: -12
+    }
+    fruitsarray.push(fruitobject);
+})
+
+const activeFruits = [];
+console.log(Math.floor(Math.random() * canvas.width - 10));
+
+let randomfruit = 1;
+let fruit = fruitsarray[randomfruit]
+const spawnFruit = () => {
+     randomfruit = Math.floor(Math.random()*7);
+     fruit = fruitsarray[randomfruit];
+     fruit.x = Math.random() * (canvas.width - fruit.w);
+    fruit.y = canvas.height - fruit.h;
+
+    fruit.dx = (Math.random() * 4) - 2;
+    fruit.dy = -12;
+    activeFruits.push(fruit);
 }
 
-function drawCirle(){
-   ctx.beginPath();
-   ctx.arc(circles.x, circles.y, circles.size, 0, Math.PI * 2);
-   ctx.fillStyle = 'teal'
-   ctx.fill();
+// function drawFruits(fruit) {
+//     console.log(fruit);
+//         ctx.drawImage(fruit.image, fruit.x, fruit.y, fruit.w, fruit.h);
+// }
+
+// drawFruits();
+
+function update() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    fruit.x += fruit.dx;
+    fruit.y += fruit.dy;
+
+    if(fruit.x + fruit.w > canvas.width){
+        fruit.dx*=-1;
+    }
+
+    if(fruit.y - fruit.w < 50){
+        fruit.dy *=-1;
+    }
     
-}
-
-
-function update(){x: Math.floor(Math.random() * (canvas.width - (30 * 2)) + 30),
-
-    ctx.clearRect(0, 0 , canvas.width, canvas.height);
-    drawCirle();
-    circles.y+=circles.dy;
+    fruit.dy+=0.1;
+    
+    activeFruits.forEach((fruit)=>{
+        ctx.drawImage(fruit.image, fruit.x, fruit.y, fruit.w, fruit.h);
+    })
 
     requestAnimationFrame(update);
 
 }
-
+spawnFruit();
+spawnFruit();
 update();
 
 

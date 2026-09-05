@@ -84,3 +84,7 @@ body{
         aspect-ratio: 16/9;
     }
 }
+
+.fruitImg{
+    display: none;
+}
