@@ -53,7 +53,7 @@ const spawnFruit = () => {
 // let ishover = false;
 
 function update() {
-    if(!startgame){ return };
+    if (!startgame) { return };
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     activeFruits.forEach((fruit) => {
@@ -71,11 +71,35 @@ function update() {
         const offcanvas = fruit.y > canvas.height + 150;
         ishover = mouseposition.x > fruit.x && mouseposition.x < fruit.x + fruit.w
             && mouseposition.y > fruit.y && mouseposition.y < fruit.y + fruit.h;
+
         if (ishover) {
+
+            // let ran = Math.floor(Math.random()*1);
+            const popsoundeff = new Audio(popsoundone)
+            popsoundeff.volume = 0.1;
+            popsoundeff.play();
 
             score++;
             // console.log(score);
             scrPoints.textContent = score;
+
+            if (score == 12) {
+
+                const TFsound = new Audio(scoretwentyfive);
+                TFsound.volume = 0.9;
+                TFsound.play();
+            }
+            if (score == 25) {
+                const Fftysound = new Audio(scorefifty);
+                Fftysound.volume = 0.9;
+                Fftysound.play();
+            }
+
+            if (score == 40) {
+                const seventyFsound = new Audio(hahasound)
+                seventyFsound.volume = 0.9;
+                seventyFsound.play();
+            }
 
         }
 
@@ -91,16 +115,25 @@ function update() {
         clearInterval(popingfruits);
         livies.textContent = "0";
     }
-if(life<1){
-    livies.textContent = "0";
-    endGame();
-}
+    if (life < 1) {
+        livies.textContent = "0";
+        if (life == 0 && score > 0) {
+            const overSound = new Audio(gameoversound);
+            overSound.volume = 0.9;
+            overSound.play();
+        }
+        endGame();
+    }
     requestAnimationFrame(update);
-
 }
 
-// console.log(ishover);
-
+const starttheGame = "assets/sounds/startthegame.mp3";
+const scorezero = "assets/sounds/chicken-on-tree-screaming.mp3"
+const scoretwentyfive = "assets/sounds/acha-ji-aisa-hai-kya.mp3"
+const scorefifty = "assets/sounds/50speech.mp3";
+const gameoversound = "assets/sounds/endgame.mp3"
+const popsoundone = ["assets/sounds/ack.mp3"];
+const hahasound = "assets/sounds/hahahah.mp3";
 
 let mouseposition = {
     x: undefined,
@@ -127,25 +160,40 @@ const gameover = document.querySelector("#gameOverMenu")
 const fnlScore = document.querySelector("#finalScore");
 
 
-function startGame () {
+function startGame() {
+
+    const startaudio = new Audio(starttheGame);
+    // startaudio.loop = true;
+    startaudio.volume = 0.9;
+    startaudio.play();
 
     life = 5;
-    score = 0; 
+    score = 0;
 
     console.log("heelo im in startGame");
     startgame = true;
 
     uiref.classList.add("hidden");
- startmenu.classList.add("hidden");
+    startmenu.classList.add("hidden");
     gameover.classList.add("hidden");
 
     popingfruits = setInterval(spawnFruit, 1000);
     update();
     console.log("exiting startgame");
 }
+
+
+
 function endGame() {
+    if (score == 0) {
+        const playzerosound = new Audio(scorezero);
+        playzerosound.volume = 0.9;
+        playzerosound.play();
+    }
     startgame = false;
-    
+
+
+
     clearInterval(popingfruits);
     cancelAnimationFrame(animationId);
 
