@@ -5,7 +5,7 @@ let life = 5;
 let score = 0;
 let startgame = false;
 let popingfruits;
-
+let animationId;
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext('2d');
 
@@ -91,7 +91,10 @@ function update() {
         clearInterval(popingfruits);
         livies.textContent = "0";
     }
-
+if(life<1){
+    livies.textContent = "0";
+    endGame();
+}
     requestAnimationFrame(update);
 
 }
@@ -119,20 +122,41 @@ canvas.addEventListener("mouseleave", () => {
 
 
 const uiref = document.querySelector("#uiScreen");
-const uiscreen = document.querySelector(".uiscreen");
+const startmenu = document.querySelector("#startMenu");
+const gameover = document.querySelector("#gameOverMenu")
+const fnlScore = document.querySelector("#finalScore");
 
 
 function startGame () {
+
+    life = 5;
+    score = 0; 
+
     console.log("heelo im in startGame");
     startgame = true;
 
     uiref.classList.add("hidden");
+ startmenu.classList.add("hidden");
+    gameover.classList.add("hidden");
 
     popingfruits = setInterval(spawnFruit, 1000);
     update();
     console.log("exiting startgame");
 }
+function endGame() {
+    startgame = false;
+    
+    clearInterval(popingfruits);
+    cancelAnimationFrame(animationId);
+
+    const finalScore = document.getElementById("finalScore");
+    finalScore.textContent = `Score: ${score}`;
+
+    uiScreen.classList.remove("hidden");
+    gameOverMenu.classList.remove("hidden");
+}
 
 document.querySelector("#startBtn").addEventListener('click', startGame);
+document.querySelector("#restartBtn").addEventListener("click", startGame);
 
 
