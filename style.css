@@ -35,6 +35,12 @@ body{
 
 }
 
+/* .playbtn{
+    color: aqua;
+    background: black;
+ z-index: 100;
+} */
+
 .header {
     position: absolute;
     width: 100%;
