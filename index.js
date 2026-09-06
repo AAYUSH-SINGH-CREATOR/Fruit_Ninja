@@ -22,6 +22,13 @@ resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
 
+// const takingfruits = document.querySelectorAll(".fruitImg");
+
+// function animatefruit(fruit){
+
+//     takingfruits.classList.Add("fruitanimation");
+    
+// }
 
 const fruitsImg = Array.from(document.querySelectorAll(".fruitImg"));
 // console.log(fruitsImg.length + " hello ji");
@@ -42,6 +49,8 @@ const spawnFruit = () => {
         y: canvas.height - 100,
         dx: Math.floor(Math.random() * 7) - 3,
         dy: -Math.floor(Math.random() * 5 + 12),
+        rotation: 0, 
+        rotationSpeed: (Math.random() - 0.5) * 0.2
     }
     activeFruits.push(newFruit);
     // console.log("HELLO WORLD");
@@ -61,7 +70,14 @@ function update() {
         fruit.x += fruit.dx;
         fruit.y += fruit.dy;
 
-        ctx.drawImage(fruit.image, fruit.x, fruit.y, fruit.w, fruit.h);
+        // ctx.drawImage(fruit.image, fruit.x, fruit.y, fruit.w, fruit.h);
+        fruit.rotation += fruit.rotationSpeed;     
+        ctx.save(); 
+        ctx.translate(fruit.x + (fruit.w / 2), fruit.y + (fruit.h / 2));
+        ctx.rotate(fruit.rotation);
+        ctx.drawImage(fruit.image, -fruit.w / 2, -fruit.h / 2, fruit.w, fruit.h);
+        ctx.restore();
+
         if (fruit.x + fruit.w > canvas.width || fruit.x - fruit.w < 0) {
             fruit.dx *= -1;
         }
@@ -71,7 +87,7 @@ function update() {
         const offcanvas = fruit.y > canvas.height + 150;
         ishover = mouseposition.x > fruit.x && mouseposition.x < fruit.x + fruit.w
             && mouseposition.y > fruit.y && mouseposition.y < fruit.y + fruit.h;
-
+    // animatefruit(activeFruits);
         if (ishover) {
    
               const sliceactive = new Audio(slicesound);
@@ -128,6 +144,7 @@ function update() {
         }
         endGame();
     }
+    // console.log("hello world");
     requestAnimationFrame(update);
 }
 
@@ -139,7 +156,7 @@ function update() {
 // const popsoundone = ["assets/sounds/ack.mp3"];
 // const hahasound = "assets/sounds/hahahah.mp3";
 
-const homesound = "assets/bgsong2.mp3";
+const homesound = "assets/bgsong.mp3";
 const slicesound = "assets/sounds/simpleslice.mp3";
 const gameoversound = "assets/sounds/gameover.mp3";
 const homemusic = new Audio(homesound);

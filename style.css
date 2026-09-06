@@ -191,3 +191,21 @@ body{
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
     transform: scale(1.05);
 }
+
+.fruitanimation{
+
+}
+@keyframes animate {
+    0%{
+        transform: rotate(0);
+    }
+    25%{
+        transform: rotate(360);
+    }
+    50%{
+        transform: rotate(540);
+    }
+    100%{
+        transform: rotate(720);
+    }
+}
