@@ -73,33 +73,37 @@ function update() {
             && mouseposition.y > fruit.y && mouseposition.y < fruit.y + fruit.h;
 
         if (ishover) {
-
+   
+              const sliceactive = new Audio(slicesound);
+                sliceactive.volume = 0.7;
+                sliceactive.play();
             // let ran = Math.floor(Math.random()*1);
-            const popsoundeff = new Audio(popsoundone)
-            popsoundeff.volume = 0.1;
-            popsoundeff.play();
+            // const popsoundeff = new Audio(popsoundone)
+            // popsoundeff.volume = 0.1;
+            // popsoundeff.play();
 
             score++;
             // console.log(score);
             scrPoints.textContent = score;
 
-            if (score == 12) {
 
-                const TFsound = new Audio(scoretwentyfive);
-                TFsound.volume = 0.9;
-                TFsound.play();
-            }
-            if (score == 25) {
-                const Fftysound = new Audio(scorefifty);
-                Fftysound.volume = 0.9;
-                Fftysound.play();
-            }
+            // if (score == 12) {
 
-            if (score == 40) {
-                const seventyFsound = new Audio(hahasound)
-                seventyFsound.volume = 0.9;
-                seventyFsound.play();
-            }
+            //     const TFsound = new Audio(scoretwentyfive);
+            //     TFsound.volume = 0.9;
+            //     TFsound.play();
+            // }
+            // if (score == 25) {
+            //     const Fftysound = new Audio(scorefifty);
+            //     Fftysound.volume = 0.9;
+            //     Fftysound.play();
+            // }
+
+            // if (score == 40) {
+            //     const seventyFsound = new Audio(hahasound)
+            //     seventyFsound.volume = 0.9;
+            //     seventyFsound.play();
+            // }
 
         }
 
@@ -119,7 +123,7 @@ function update() {
         livies.textContent = "0";
         if (life == 0 && score > 0) {
             const overSound = new Audio(gameoversound);
-            overSound.volume = 0.9;
+            overSound.volume = 0.5;
             overSound.play();
         }
         endGame();
@@ -127,13 +131,21 @@ function update() {
     requestAnimationFrame(update);
 }
 
-const starttheGame = "assets/sounds/startthegame.mp3";
-const scorezero = "assets/sounds/chicken-on-tree-screaming.mp3"
-const scoretwentyfive = "assets/sounds/acha-ji-aisa-hai-kya.mp3"
-const scorefifty = "assets/sounds/50speech.mp3";
-const gameoversound = "assets/sounds/endgame.mp3"
-const popsoundone = ["assets/sounds/ack.mp3"];
-const hahasound = "assets/sounds/hahahah.mp3";
+// const starttheGame = "assets/sounds/startthegame.mp3";
+// const scorezero = "assets/sounds/chicken-on-tree-screaming.mp3"
+// const scoretwentyfive = "assets/sounds/acha-ji-aisa-hai-kya.mp3"
+// const scorefifty = "assets/sounds/50speech.mp3";
+// const gameoversound = "assets/sounds/endgame.mp3"
+// const popsoundone = ["assets/sounds/ack.mp3"];
+// const hahasound = "assets/sounds/hahahah.mp3";
+
+const homesound = "assets/bgsong2.mp3";
+const slicesound = "assets/sounds/simpleslice.mp3";
+const gameoversound = "assets/sounds/gameover.mp3";
+const homemusic = new Audio(homesound);
+homemusic.loop = true;
+homemusic.volume=0.3;
+homemusic.play();
 
 let mouseposition = {
     x: undefined,
@@ -162,10 +174,9 @@ const fnlScore = document.querySelector("#finalScore");
 
 function startGame() {
 
-    const startaudio = new Audio(starttheGame);
-    // startaudio.loop = true;
-    startaudio.volume = 0.9;
-    startaudio.play();
+    // const startaudio = new Audio(starttheGame);
+    // startaudio.volume = 0.9;
+    // startaudio.play();
 
     life = 5;
     score = 0;
@@ -177,7 +188,15 @@ function startGame() {
     startmenu.classList.add("hidden");
     gameover.classList.add("hidden");
 
-    popingfruits = setInterval(spawnFruit, 1000);
+    let spawnspeed;
+    if(mode == "normal"){
+         spawnspeed = 650;
+    }
+    else{
+        spawnspeed=350;
+    }
+
+    popingfruits = setInterval(spawnFruit,spawnspeed);
     update();
     console.log("exiting startgame");
 }
@@ -185,11 +204,13 @@ function startGame() {
 
 
 function endGame() {
-    if (score == 0) {
-        const playzerosound = new Audio(scorezero);
-        playzerosound.volume = 0.9;
-        playzerosound.play();
-    }
+    // if (score == 0) {
+    //     const playzerosound = new Audio(scorezero);
+    //     playzerosound.volume = 0.9;
+    //     playzerosound.play();
+    // }
+
+    
     startgame = false;
 
 
@@ -207,4 +228,23 @@ function endGame() {
 document.querySelector("#startBtn").addEventListener('click', startGame);
 document.querySelector("#restartBtn").addEventListener("click", startGame);
 
+
+
+const normalmode = document.getElementById("normalBtn");
+const advancemode = document.getElementById("advanceBtn");
+let mode = 'normal';
+normalmode.addEventListener("click", ()=>{
+    console.log("in normal mode");
+  mode = "normal";
+  normalmode.classList.add("selected");
+  advancemode.classList.remove("selected");
+
+})
+
+advancemode.addEventListener("click", ()=>{
+    console.log("in advance mode")
+    mode = 'advance';
+    advancemode.classList.add("selected");
+    normalmode.classList.remove("selected");
+})
 

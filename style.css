@@ -128,8 +128,9 @@ body{
 .action_btn {
     padding: 15px 40px;
     font-size: 24px;
-    background: #FFB000;
-    color: #110000;
+    /* background: #FFB000; */
+    background: #1A1D20;
+    color: #555;
     border: 3px solid white;
     border-radius: 10px;
     cursor: pointer;
@@ -137,11 +138,56 @@ body{
     transition: transform 0.2s, background 0.2s;
 }
 
-.action_btn:hover {
+#startBtn{
+       padding: 15px 40px;
+    font-size: 24px;
+    background: #FFB000;
+    /* background: rgb(2, 2, 43); */
+    color: #fff;
+    border: 3px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s, background 0.2s, color 0.2s;
+}
+
+#startBtn:hover{
+       
     transform: scale(1.1);
     background: white;
+    color: #000;
 }
+
+.action_btn:hover {
+    background: #FFB000;
+    transform: scale(1.08);
+    /* background: white; */
+}
+
 
 .hidden {
     display: none;
+}
+
+.modeButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+@media(min-width: 768px){
+    .modeButtons {
+        flex-direction: row; 
+    }
+}
+
+.action_btn.selected{
+    /* background: #FF1744; 
+    color: #FFFFFF; */
+    background: #FFB000;
+    color: #110000;
+    border: 3px solid white; 
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
 }
